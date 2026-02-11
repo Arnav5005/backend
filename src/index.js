@@ -1,11 +1,10 @@
-import mongoose from "mongoose";
-import { DB_NAME } from "../constant";
-import connect_DB from "./db";
+// import mongoose from "mongoose";
+// import { DB_NAME } from "../constant";
+import connect_DB from "./db/index.js";
+import dotenv from "dotenv"
+dotenv.config();
 
-
-connect_DB
-
-
+connect_DB()
 
 
 
