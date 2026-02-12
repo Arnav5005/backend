@@ -1,6 +1,6 @@
 import express from "express"
 import cors from "cors"
-import cookieParser from "cookie-parser"
+import cookieParser from "cookies-parser"
 
 const app=express()
 

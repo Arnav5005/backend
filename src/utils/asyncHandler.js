@@ -43,7 +43,6 @@ Used when the inner function (func) involves asynchronous operations.
 
 
 
-
 // Method - 1 (Async handler using try-catch)
 
 // const asyncHandler=()=>{}
@@ -78,5 +77,13 @@ Used when the inner function (func) involves asynchronous operations.
 //     }
 // }
 
+
+const asyncHandler=(requestHandler)=>{
+    (req,res,next)=>{
+        Promise
+        .resolve(requestHandler(req,res,next))
+        .catch((error)=>next(error))
+    }
+}
 
 export {asyncHandler}
