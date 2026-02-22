@@ -1,4 +1,8 @@
 import mongoose ,{Schema} from "mongoose";
+import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
+
+// how will we encrypt data ---> we will use pre hook of mongoose which says do something just before saving data and we can apply encrypting algo before it
 
 // here mongoose is a default export that's why it's without braces and {Schema} is a named export that's why braces are used 
 
@@ -49,5 +53,24 @@ const userSchema=new Schema( // refer image.png to know what are the required fi
         }
     },{timestamps:true} // createdAt , updatedAt
 )
+
+// Pre hook
+
+userSchema.pre("save",async function(next){ // req , res , next(passes control to the next middleware function) and since pre hook is a middleware therefore access of next is necessary
+
+    // we just want to hash password only when it's modified
+
+    if(!this.isModified("password")){ // if password is not modified then go to next() middleware
+        return next()
+    }
+    this.password=bcrypt.hash(this.password,10) // hash this.password with 10 rounds of hashing there is also a default value so it was not necessary to pass that
+    next() // go to next middleware
+}) // it means call pre hook when we save the info NOTE - here we don't use arrow function callback because arrow function don't have "this" reference which we need in this functionality that's why we use normal function and that too async because these hashing algo takes time so to not freeze the application we use async function
+
+// custom instance mehtod i.e. we are defining a method
+
+userSchema.method.isPasswordCorrect=async function (password){ // we are using bcrypt to compare whether password is correct or not
+    return await bcrypt.compare(password,this.password) // this will return true of false after checking if the password (entered by user) is same as this.password(encrypted)
+}
 
 export const User = mongoose.model("User",userSchema) // in mongo DB it'll reflect as users

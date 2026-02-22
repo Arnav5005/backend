@@ -1,0 +1,21 @@
+These are the following packages/libraries/plugins that we have used in this project : 
+
+1.cokkie-parser(to store cookies)
+
+2.nodemon(to auto-rerun backend with changes)
+
+3.dotenv(to load env variables from .env file)
+
+4.express(backend library)
+
+5.mongoose(for DB-modelling)
+
+6.bcrypt(for hashing passwords)
+
+7.JSONwebtokens/JWT(used to securely transmit information between parties as a JSON object)
+
+8.Mongoose aggregate paginate(splitting large datasets into smaller, manageable "pages" when using MongoDB's aggregation framework within a Node.js application)
+
+9.
+
+10.
