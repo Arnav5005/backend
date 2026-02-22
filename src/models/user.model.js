@@ -8,7 +8,7 @@ import bcrypt from "bcrypt"
 
 const userSchema=new Schema( // refer image.png to know what are the required fields for this project to model
     {
-        username:{
+        userName:{
             type: String,
             required: true,
             unique: true,
@@ -54,7 +54,9 @@ const userSchema=new Schema( // refer image.png to know what are the required fi
     },{timestamps:true} // createdAt , updatedAt
 )
 
+
 // Pre hook
+
 
 userSchema.pre("save",async function(next){ // req , res , next(passes control to the next middleware function) and since pre hook is a middleware therefore access of next is necessary
 
@@ -67,10 +69,40 @@ userSchema.pre("save",async function(next){ // req , res , next(passes control t
     next() // go to next middleware
 }) // it means call pre hook when we save the info NOTE - here we don't use arrow function callback because arrow function don't have "this" reference which we need in this functionality that's why we use normal function and that too async because these hashing algo takes time so to not freeze the application we use async function
 
+
 // custom instance mehtod i.e. we are defining a method
+
 
 userSchema.method.isPasswordCorrect=async function (password){ // we are using bcrypt to compare whether password is correct or not
     return await bcrypt.compare(password,this.password) // this will return true of false after checking if the password (entered by user) is same as this.password(encrypted)
+}
+
+// jwt
+
+userSchema.method.generateAccessToken=function(){
+    return jwt.sign( // JWT payload should contain the minimum data needed to authorize a request — nothing more. A JWT payload is not encrypted (so don't put sensitive info)
+        {
+            _id:this._id,
+            email:this.email,
+            userName:this.userName,
+            fullName:this.fullName
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn:process.env.ACCESS_TOKEN_EXPIRY
+        }
+     )
+}
+userSchema.method.generateRefreshToken=function(){
+    return jwt.sign(
+        {
+            _id:this._id,
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+            expiresIn:process.env.REFRESH_TOKEN_EXPIRY
+        }
+     )
 }
 
 export const User = mongoose.model("User",userSchema) // in mongo DB it'll reflect as users
