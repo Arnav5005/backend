@@ -1,0 +1,91 @@
+HTTP stands for Hyper Text Transfer Protocol
+
+It is the foundational, application-layer protocol used for transmitting data—such as HTML, images, and videos—across the World Wide Web. It operates on a client-server model, where a browser (client) sends a request to a server, and the server returns the requested data
+
+URL - Uniform Resource Locator 
+    Purpose - Locate a resource (address)
+    Includes location - Yes
+    ex - https://example.com
+
+URN - Uniform Resource Name
+    Purpose - Name a resource (persistent)
+    Includes location - No
+    ex - urn:isbn:0451450523
+
+URI - Uniform Resource Identifier (https://example.com)
+    Purpose - Identify a resource
+    Includes location - Sometimes
+    ex - https://example.com
+
+HTTP Headers 
+
+metadata ---> Key - value sent along with request & xesponse
+
+http headers are used for caching , authentication , manage state 
+
+Categories of headers
+
+. Request Headers ---> from Client
+. Response Headers ---> from Server
+. Reprentation Headers ---> encoding / Compression
+. Payload Headers ----> data
+
+
+Most Common Headers
+
+. Accept : application / json ---> these headers give info about which format is acceptible generally JSON data is acceptible as it's also used for API's
+. User - Agent ---> these are responsible for which we get a suggestion like "use our app"
+. Autherisation 
+. Content - Type
+. Cookie
+. Cache - Control ---> gives info about after how long the data will be expired
+
+Internal Policy headers(these depends on company i.e. whether they wish to consider them or not) - 
+
+1. CORS Headers
+
+Access-Control-Allow-Origin
+Acccss-Control-Allow-Credentials
+Access-Control-Allow-Method
+
+2. Security Headers
+
+Cross-Origin-Embedder-Policy
+Cross-Origin-Opener-Policy
+Content-Security-Policy
+X-XSS-Protection
+
+HTTP methods :
+
+Basic set of operations that can be used to interact with server
+
+. GET : retrieve a resource
+. HEAD : No message body (response headers only)
+. OPTIONS : what operations are available 
+. TRACE : loopback test (get some data)
+· DELETE : remove a resource
+· PUT : replace a resource
+. POST : interact with resource (mostly add)
+· PATCH : Change part of a resource
+
+HTTP status code
+
+. 1XX : Informational 
+· 2XX : Success
+· 3XX : Redirection
+. 4XX : Client error
+· 5XX : Server error
+
+100 - Continue
+102 - Processing
+200 - OK
+201 - Created
+202 - Accepted
+307 - Temporary redirect
+308 - Permanent redirect
+400 - Bad reques
+401 - Unauthorised
+402 - Payment required
+404 - Not found
+500 - Internal server error
+504 - Gateway timeout
