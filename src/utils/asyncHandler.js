@@ -38,11 +38,6 @@ Used when the inner function (func) involves asynchronous operations.
 
 */
 
-
-
-
-
-
 // Method - 1 (Async handler using try-catch)
 
 // const asyncHandler=()=>{}
@@ -52,7 +47,6 @@ Used when the inner function (func) involves asynchronous operations.
 // const asyncHandler = () => {} // basic
 // const asyncHandler = (func) => { () => {} } // func as an argument
 // const asyncHandler = (func) => async () => {} // func as an argument in an async handler
-
 
 // const asyncHandler=(fn)=> async (req,res,next)=>{
 //     try {
@@ -66,7 +60,6 @@ Used when the inner function (func) involves asynchronous operations.
 //     }
 // }
 
-
 // Method - 2 (using promises)
 
 // const asyncHandler=(fn)=>{
@@ -77,13 +70,8 @@ Used when the inner function (func) involves asynchronous operations.
 //     }
 // }
 
+const asyncHandler = (requestHandler) => (req, res, next) => {
+  Promise.resolve(requestHandler(req, res, next)).catch((err) => next(err));
+};
 
-const asyncHandler=(requestHandler)=>{
-    (req,res,next)=>{
-        Promise
-        .resolve(requestHandler(req,res,next))
-        .catch((error)=>next(error))
-    }
-}
-
-export {asyncHandler}
+export { asyncHandler };
