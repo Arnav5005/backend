@@ -1,0 +1,3 @@
+1. Use Thunder Client if you want quick tests inside VS Code (send requests, save collections, set headers/cookies, environment variables).
+2. Use Postman if you want heavier collaboration features, sharing, mocks, monitors, etc.
+3. Use curl (or a small test script) if you want something lightweight and easy to run in CI.
